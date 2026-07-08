@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --bg-color: #0a0e0f;
+  --panel-color: #0d1117;
+  --text-color: #c9d1d9;
+  --accent-color: #39d353;
+  --info-color: #58a6ff;
+  --muted-color: #6e7681;
+  
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background Texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  background-image: radial-gradient(var(--info-color) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.content-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-right: 60px; /* Space for the right rail */
+}
+
+/* Vertical Side Rail Navigation */
+.right-rail {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 12px;
+  border-radius: 24px;
+  background: rgba(13, 17, 23, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.rail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--muted-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.rail-dot:hover {
+  background-color: var(--info-color);
+  transform: scale(1.5);
+}
+
+.rail-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-color);
+  background: rgba(13, 17, 23, 0.8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.rail-dot:hover::after {
+  opacity: 1;
+  right: 20px;
+}
+
+/* Sections & Overlapping Layout */
+.section-wrapper {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.overlap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.overlap-right {
+  align-self: flex-end;
+  margin-top: -40px; /* The overlap effect */
+  z-index: 2;
+}
+
+.overlap-left {
+  align-self: flex-start;
+  z-index: 1;
+}
+
+/* Glass Panels (No 3-dots, no terminal frame) */
+.glass-panel {
+  background: rgba(13, 17, 23, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 15px 40px -15px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Thin label tab replacing the 3 dots */
+.panel-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom-right-radius: 8px;
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted-color);
+}
+
+/* Typography */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.1;
+  color: var(--text-color);
+}
+
+.accent-text { color: var(--accent-color); }
+.info-text { color: var(--info-color); }
+
+/* Signature Element: Form Guide */
+.form-guide {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.form-box {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.form-w { background-color: var(--accent-color); color: #0a0e0f; } /* Win / Deploy */
+.form-d { background-color: var(--info-color); color: #0a0e0f; } /* Draw / Debug */
+.form-l { background-color: #f85149; color: #0a0e0f; } /* Loss / Refactor */
+
+/* Match Stats Layout for Projects */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 8px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.stat-label { color: var(--muted-color); }
+.stat-value { color: var(--text-color); text-align: right; }
+
+.tech-btn {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.tech-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--info-color);
+  color: var(--info-color);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .right-rail {
+    top: auto;
+    bottom: 24px;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: row;
+    padding: 12px 24px;
+  }
+  .rail-dot::after {
+    top: -24px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+  .rail-dot:hover::after {
+    right: 50%;
+    top: -28px;
+  }
+  .content-container { padding-right: 0; }
+  .overlap-right { margin-top: 16px; align-self: stretch; }
+  .overlap-left { align-self: stretch; }
+}
